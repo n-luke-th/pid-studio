@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# pID Studio — M1 Foundation
 
-## Getting Started
+M1 establishes the Next.js application shell, navigation, shared card types, validation schema, and a small Zustand store. It deliberately does **not** add a backend, database, authentication, or persistence yet.
 
-First, run the development server:
+## Requirements
+
+- Node.js 20.9+
+- npm 10+ (or a compatible package manager)
+
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## M1 routes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/` — app dashboard shell
+- `/studio` — Card Studio placeholder for M2
+- `/cards` — My Cards placeholder for M3
+- `/view` — public read-only viewer placeholder for M4
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```text
+src/
+  app/
+    cards/page.tsx
+    studio/page.tsx
+    view/page.tsx
+    globals.css
+    layout.tsx
+    page.tsx
+  components/
+    app-shell.tsx
+    page-heading.tsx
+    stat-card.tsx
+  data/
+    navigation.ts
+  lib/
+    card-schema.ts
+  stores/
+    card-store.ts
+  types/
+    card.ts
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Foundation decisions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Next.js App Router + TypeScript** for the application shell and routes.
+- **Tailwind CSS v4** for styling.
+- **Zustand** for lightweight client state. The store is intentionally in-memory in M1; IndexedDB is introduced with the My Cards milestone.
+- **Zod** for validating card data at boundaries.
+- Card content and design are separate types so the editor UI does not become the data model.
+- No server actions, API routes, database, auth, or cloud dependencies in this milestone.
 
-## Deploy on Vercel
+## Next milestone
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+M2 replaces the Studio placeholder with the working card editor and live preview, reusing the shared card model in `src/types/card.ts`.
