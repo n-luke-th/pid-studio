@@ -26,7 +26,8 @@ export const pidCardSchema = z.object({
   }),
   fields: z.array(cardFieldSchema).max(20),
   design: z.object({
-    themeId: z.enum(["emerald", "cyber", "dark", "gold"]),
+    // themeId: z.enum(["emerald", "cyber", "dark", "gold"]),
+    themeId: z.enum(["mint", "lavender", "midnight", "peach"]),
     accentColor: z.string().regex(/^#[0-9A-Fa-f]{6}$/),
     holographic: z.boolean(),
   }),

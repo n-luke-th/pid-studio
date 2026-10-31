@@ -17,7 +17,7 @@ export interface CardIdentity {
   emergencyContact?: string;
 }
 
-export type CardThemeId = "emerald" | "cyber" | "dark" | "gold";
+export type CardThemeId = "mint" | "lavender" | "midnight" | "peach";
 
 export interface CardDesign {
   themeId: CardThemeId;
