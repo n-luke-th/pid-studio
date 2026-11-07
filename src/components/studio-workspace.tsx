@@ -198,7 +198,9 @@ export function StudioWorkspace() {
 
       const link = document.createElement("a");
 
-      link.download = `${(card.identity.fullName || "pid-card")
+      link.download = `${card.id.split("-", 1)[0]}-${(
+        card.identity.fullName || "pid-card"
+      )
         .trim()
         .replace(/\s+/g, "-")
         .toLowerCase()}-${showBack ? "back" : "front"}-id.png`;

@@ -311,18 +311,22 @@ a {
   box-shadow: 0 20px 45px rgba(30, 24, 48, 0.18);
 }
 .id-card-mint {
+  color: #1f3431;
   background: linear-gradient(135deg, #d9f8eb 0%, #a8e4d2 54%, #83cbbb 100%);
 }
+
 .id-card-lavender {
-  color: #342d4e;
+  color: #302747;
   background: linear-gradient(135deg, #f0e9ff 0%, #d6c6fa 55%, #bba8ed 100%);
 }
+
 .id-card-midnight {
   color: #f7f0ff;
   background: linear-gradient(135deg, #514b79 0%, #302c51 55%, #25213e 100%);
 }
+
 .id-card-peach {
-  color: #593c37;
+  color: #49302b;
   background: linear-gradient(135deg, #ffe6d8 0%, #ffc6ad 55%, #f5a88f 100%);
 }
 .id-card-orb {
