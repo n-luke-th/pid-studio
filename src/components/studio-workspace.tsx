@@ -148,10 +148,14 @@ export function StudioWorkspace() {
 
   const exportPng = async () => {
     if (!cardRef.current) return;
+
     setExporting(true);
     setMessage("");
+
+    let exportWrapper: HTMLDivElement | null = null;
+
     try {
-      const visibleFace = cardRef.current.querySelector(
+      const visibleFace = cardRef.current.querySelector<HTMLElement>(
         showBack ? ".id-card-back" : ".id-card-front",
       );
 
@@ -159,20 +163,58 @@ export function StudioWorkspace() {
         throw new Error("Card face not found");
       }
 
-      const dataUrl = await toPng(visibleFace as HTMLElement, {
+      const rect = visibleFace.getBoundingClientRect();
+      const exportClone = visibleFace.cloneNode(true) as HTMLElement;
+
+      // Remove 3D positioning and rotation from the exported copy.
+      Object.assign(exportClone.style, {
+        position: "relative",
+        inset: "auto",
+        transform: "none",
+        backfaceVisibility: "visible",
+        WebkitBackfaceVisibility: "visible",
+        width: `${rect.width}px`,
+        minHeight: "340px",
+      });
+
+      // Place the clone outside the visible viewport.
+      exportWrapper = document.createElement("div");
+
+      Object.assign(exportWrapper.style, {
+        position: "fixed",
+        left: "-10000px",
+        top: "0",
+        width: `${rect.width}px`,
+        pointerEvents: "none",
+      });
+
+      exportWrapper.appendChild(exportClone);
+      document.body.appendChild(exportWrapper);
+
+      const dataUrl = await toPng(exportClone, {
         pixelRatio: 2,
         cacheBust: true,
       });
+
       const link = document.createElement("a");
-      link.download = `${(card.identity.fullName || "pid-card").trim().replace(/\s+/g, "-").toLowerCase()}-id.png`;
+
+      link.download = `${(card.identity.fullName || "pid-card")
+        .trim()
+        .replace(/\s+/g, "-")
+        .toLowerCase()}-${showBack ? "back" : "front"}-id.png`;
+
       link.href = dataUrl;
       link.click();
+
       setMessage("Your PNG is ready!");
-    } catch {
+    } catch (error) {
+      console.error("PNG export failed:", error);
+
       setMessage(
         "Could not export the card. Try again or use a smaller avatar.",
       );
     } finally {
+      exportWrapper?.remove();
       setExporting(false);
     }
   };
