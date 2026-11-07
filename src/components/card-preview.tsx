@@ -53,11 +53,9 @@ export function CardPreview({
         <button
           type="button"
           onClick={() => {
-            setShowBack((value) => {
-              const next = !value;
-              onFaceChange?.(next);
-              return next;
-            });
+            const next = !showBack;
+            setShowBack(next);
+            onFaceChange?.(next);
           }}
           className="mini-button"
           aria-label="Flip ID card"

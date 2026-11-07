@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { ArrowUpRight, Heart, Sparkles, WandSparkles } from "lucide-react";
 import { navigationItems } from "@/data/navigation";
 import { HeaderControls } from "@/components/header-controls";
+import { getPackageVersion } from "@/lib/utils";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -67,6 +68,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
         <div className="mt-5 flex items-center gap-2 px-2 text-xs text-muted">
           <Heart size={13} className="text-accent" /> Made for good ideas
+        </div>
+
+        <div className="mt-2 flex items-center gap-2 px-2 text-[10px] text-muted">
+          <span className="opacity-50">
+            version <code>{getPackageVersion()}</code>
+          </span>
+          <span className="opacity-50">|</span>
+          <span className="opacity-50">by</span>
+          <Link href="https://lukecreated.com" target="_aboutblank">
+            LukeCreated
+          </Link>
         </div>
       </aside>
 
